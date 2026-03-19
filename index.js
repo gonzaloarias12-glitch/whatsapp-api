@@ -4,12 +4,15 @@ const fetch = require("node-fetch");
 const app = express();
 app.use(express.json());
 
-const TOKEN = "TU_TOKEN";
-const PHONE_ID = "TU_PHONE_NUMBER_ID";
+// 🔴 REEMPLAZAR ESTO
+const TOKEN = "EAARP2SYt5OABQybczMQcQbU2ZB0UiNtGuVbWuOPGbgbjKvFrM5oDEk5EoYrYCAbND1ikJ5gOfFxZBViwaYgiUonPlEnbEr5JjiwEZAgFg9PHt6XMZBJJtOJc3YzuFtxTiwlz8ZCeGcIbcT5ctbCOYvA3F3ZCeIumUeYTDKFTArXddmI3NJGqRZAAjlyxolZCqZB4SsEYLWjelIe8gWnQ4xxkFSqDZCe0ZBApJlRDbxZB7QZCAfLwy6kRfapLzbSjzbWSWjZBrs5N2cV8Uyr2iDGmCXjQVT1h1z";
+const PHONE_ID = "1029472493584141";
 
+// ✅ Token de verificación (el mismo que pusiste en Meta)
+const VERIFY_TOKEN = "mi_token_123";
+
+// 👉 Verificación del webhook
 app.get("/webhook", (req, res) => {
-  const VERIFY_TOKEN = "mi_token_123";
-
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
@@ -21,14 +24,14 @@ app.get("/webhook", (req, res) => {
   }
 });
 
+// 👉 Recibir mensajes y responder
 app.post("/webhook", async (req, res) => {
-  const mensaje = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+  try {
+    const mensaje = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-  if (mensaje) {
-    const from = mensaje.from;
-    const texto = mensaje.text?.body?.toLowerCase();
+    if (mensaje) {
+      const from = mensaje.from;
 
-    if (texto && texto.includes("crear mi usuario")) {
       await fetch(`https://graph.facebook.com/v18.0/${PHONE_ID}/messages`, {
         method: "POST",
         headers: {
@@ -40,14 +43,18 @@ app.post("/webhook", async (req, res) => {
           to: from,
           type: "text",
           text: {
-            body: "Hola 👋 soy Sofi, tu cajera de Ganamos.\n\n¿Me dirías tu nombre o qué usuario te gustaría usar? 😊"
+            body: "Hola 👋 te comunicaste con Convex.\n\n¿Te gustaría recibir más información? 😊"
           }
         })
       });
     }
-  }
 
-  res.sendStatus(200);
+    res.sendStatus(200);
+
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(3000, () => console.log("Servidor corriendo"));
