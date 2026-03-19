@@ -6,7 +6,7 @@ app.use(express.json());
 
 // 🔴 REEMPLAZAR ESTO
 const TOKEN = "EAARP2SYt5OABQybczMQcQbU2ZB0UiNtGuVbWuOPGbgbjKvFrM5oDEk5EoYrYCAbND1ikJ5gOfFxZBViwaYgiUonPlEnbEr5JjiwEZAgFg9PHt6XMZBJJtOJc3YzuFtxTiwlz8ZCeGcIbcT5ctbCOYvA3F3ZCeIumUeYTDKFTArXddmI3NJGqRZAAjlyxolZCqZB4SsEYLWjelIe8gWnQ4xxkFSqDZCe0ZBApJlRDbxZB7QZCAfLwy6kRfapLzbSjzbWSWjZBrs5N2cV8Uyr2iDGmCXjQVT1h1z";
-const PHONE_ID = "1029472493584141";
+const PHONE_ID = "1992340554959841";
 
 // ✅ Token de verificación (el mismo que pusiste en Meta)
 const VERIFY_TOKEN = "mi_token_123";
